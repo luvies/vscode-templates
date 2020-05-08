@@ -1,0 +1,9 @@
+{
+  "npm.packageManager": "yarn",
+  "tslint.packageManager": "yarn",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  }
+}
