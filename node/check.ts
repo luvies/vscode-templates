@@ -1,4 +1,5 @@
 import { assertAllExist, DirItem, ScriptRunFn } from "../utils.ts";
+import { parseNodeArgs } from "./utils.ts";
 
 const requiredFiles: DirItem[] = [
   {
@@ -7,8 +8,14 @@ const requiredFiles: DirItem[] = [
   },
 ];
 
-const run: ScriptRunFn = async () => {
-  return assertAllExist(requiredFiles);
+const run: ScriptRunFn = async (args) => {
+  const parsedArgs = parseNodeArgs(args);
+
+  if (parsedArgs.name) {
+    return true;
+  } else {
+    return assertAllExist(requiredFiles);
+  }
 };
 
 export default run;

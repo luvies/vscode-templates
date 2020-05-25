@@ -1,6 +1,6 @@
-import { join } from "./deps.ts";
+import { ArgParsingOptions, Args, join, parse } from "./deps.ts";
 
-export type ScriptRunFn = () => Promise<boolean>;
+export type ScriptRunFn = (args: string[]) => Promise<boolean>;
 
 export interface DirItem {
   name: string;
@@ -8,6 +8,31 @@ export interface DirItem {
 }
 
 const dirItemTypePad = 7;
+
+export function parseArgs<T extends Args>(
+  args: string[],
+  opts?: ArgParsingOptions,
+): T | undefined {
+  let unknownOptions: string[] = [];
+  const parsed = parse(
+    args,
+    {
+      ...opts,
+      unknown: (arg) => {
+        if (arg.startsWith("-")) {
+          unknownOptions.push(arg);
+        }
+      },
+    },
+  ) as T;
+
+  if (unknownOptions.length > 0) {
+    console.error(`Unknown options: ${unknownOptions.join(", ")}`);
+    return undefined;
+  }
+
+  return parsed;
+}
 
 export async function exists(
   path: string,
