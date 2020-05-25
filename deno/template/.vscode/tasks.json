@@ -7,7 +7,24 @@
       "label": "Run File",
       "type": "shell",
       "command": "${file}",
-      "problemMatcher": []
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Test",
+      "type": "shell",
+      "command": "deno test",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
     }
   ]
 }
