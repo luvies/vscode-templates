@@ -11,6 +11,7 @@ const devPackages = [
 
   // Linting
   "@luvies/config",
+  "prettier",
   "eslint",
   "@typescript-eslint/parser",
   "@typescript-eslint/eslint-plugin",
