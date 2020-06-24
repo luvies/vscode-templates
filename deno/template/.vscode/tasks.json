@@ -16,7 +16,7 @@
     {
       "label": "Test",
       "type": "shell",
-      "command": "deno test",
+      "command": "vr test",
       "options": {
         "cwd": "${workspaceFolder}"
       },
