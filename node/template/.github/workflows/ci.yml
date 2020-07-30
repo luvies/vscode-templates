@@ -1,0 +1,38 @@
+name: Node/Deno CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Set up pnpm
+        run: |
+          curl -L https://raw.githubusercontent.com/pnpm/self-installer/master/install.js | node
+          pnpm config set store-dir ~/.pnpm-store
+      - name: Setup cache
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-build-${{ hashFiles('**/pnpm-lock.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install
+        run: pnpm install
+      - name: Build
+        run: pnpm run build
+      - name: Test
+        run: pnpm test

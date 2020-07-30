@@ -20,7 +20,8 @@ const devPackages = [
   "eslint-plugin-sort-imports-es6-autofix",
 ];
 
-const lintCommands = {
+const scripts = {
+  build: "tsc",
   lint: "./node_modules/@luvies/config/scripts/lint.sh lint src",
   fix: "./node_modules/@luvies/config/scripts/lint.sh fix src",
 };
@@ -67,15 +68,15 @@ const run: ScriptRunFn = async (args) => {
 
   console.log("Adding package scripts...");
   const pkg = JSON.parse(await Deno.readTextFile(pgkJson));
-  pkg.scripts = lintCommands;
+  pkg.scripts = scripts;
   await Deno.writeTextFile(pgkJson, JSON.stringify(pkg, undefined, 2));
 
   console.log("Adding dev packages to package.json...");
   const process = Deno.run({
     cmd: [
-      "yarn",
+      "pnpm",
       "add",
-      "--dev",
+      "--save-dev",
       ...devPackages,
     ],
   });
