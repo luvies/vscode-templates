@@ -2,8 +2,7 @@ name: Publish
 
 on:
   release:
-    types:
-      - created
+    types: [created]
 
 jobs:
   publish:
@@ -15,8 +14,8 @@ jobs:
       - name: Setup node 14 with npm registry
         uses: actions/setup-node@v1
         with:
-          node-version: "14.x"
-          registry-url: "https://registry.npmjs.org"
+          node-version: 14.x
+          registry-url: https://registry.npmjs.org
 
       - name: Set up pnpm
         run: |
@@ -51,8 +50,8 @@ jobs:
       - name: Setup node 14 with GitHub registry
         uses: actions/setup-node@v1
         with:
-          node-version: "14.x"
-          registry-url: "https://npm.pkg.github.com"
+          node-version: 14.x
+          registry-url: https://npm.pkg.github.com
 
       - name: Publish to GitHub
         run: pnpm publish
