@@ -21,7 +21,9 @@ const devPackages = [
 ];
 
 const scripts = {
-  build: "tsc",
+  build:
+    "tsc --module commonjs --outDir dist/cjs && tsc --module es2015 --outDir dist/esm",
+  clean: "rm -rf dist/* coverage *.tsbuildinfo",
   lint: "./node_modules/@luvies/config/scripts/lint.sh lint src",
   fix: "./node_modules/@luvies/config/scripts/lint.sh fix src",
 };
@@ -33,15 +35,17 @@ const basePkgJson = (
   author?: string,
   repo?: string,
 ) => ({
-  "name": name,
-  "version": version ?? "0.0.1",
-  "description": desc ?? "<desc>",
-  "main": "dist/index.js",
-  "license": "MIT",
-  "author": author ?? "<author>",
-  "repository": repo ?? "luvies/lazy",
-  "publishConfig": {
-    "access": "public",
+  name: name,
+  version: version ?? "0.0.1",
+  description: desc ?? "<desc>",
+  module: "dist/esm/index.js",
+  main: "dist/cjs/index.js",
+  typings: "dist/esm/index.d.ts",
+  license: "MIT",
+  author: author ?? "<author>",
+  repository: repo ?? "luvies/lazy",
+  publishConfig: {
+    access: "public",
   },
 });
 
