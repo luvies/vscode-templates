@@ -15,9 +15,9 @@ const devPackages = [
   "eslint",
   "@typescript-eslint/parser",
   "@typescript-eslint/eslint-plugin",
+  "eslint-plugin-import",
   "eslint-plugin-prettier",
   "eslint-config-prettier",
-  "eslint-plugin-sort-imports-es6-autofix",
 ];
 
 const scripts = {
