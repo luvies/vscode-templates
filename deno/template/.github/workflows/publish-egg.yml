@@ -16,7 +16,7 @@ jobs:
 
       - name: Setup eggs CLI
         run: |
-          deno install -A -f --unstable -n eggs https://x.nest.land/eggs@0.1.6/mod.ts
+          deno install -A -f --unstable -n eggs https://x.nest.land/eggs@0.2.3/mod.ts
           echo "::add-path::$HOME/.deno/bin"
 
       - name: Publish Egg to Nest.land
