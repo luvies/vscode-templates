@@ -8,13 +8,17 @@ jobs:
   publish:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [16.x]
+
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup node 14 with npm registry
+      - name: Setup node with npm registry
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org
 
       - name: Set up pnpm
@@ -47,10 +51,10 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Setup node 14 with GitHub registry
+      - name: Setup node with GitHub registry
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: ${{ matrix.node-version }}
           registry-url: https://npm.pkg.github.com
 
       - name: Publish to GitHub
